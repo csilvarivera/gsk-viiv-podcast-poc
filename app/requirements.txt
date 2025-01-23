@@ -1,0 +1,10 @@
+toml
+streamlit
+streamlit_extras
+google-cloud-aiplatform
+google-cloud-bigquery
+google-cloud-storage
+google-cloud-texttospeech
+pandas
+watchdog
+bigframes
