@@ -10,7 +10,8 @@ To execute this application:
 
 - Modify the app_config.tom with your Project, Region, GCS Bucket and BQ tables (optional)
 
-Execute locally:
+Execute locally (Python 3.11):
+- cd app/
 - python -m venv .venv
 - source .venv/bin/activate
 - pip install -r requirements.txt
