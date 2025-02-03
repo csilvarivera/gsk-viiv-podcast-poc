@@ -1,0 +1,102 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# -----------------------------------------------------------------------------
+# Global Configurations
+# -----------------------------------------------------------------------------
+[global]
+
+# Replace with your project ID and location
+project_id = "csilvariverademo"
+location = "us-west1"
+
+
+# -----------------------------------------------------------------------------
+# Vertex Options
+# -----------------------------------------------------------------------------
+[vertex_ai]
+model="gemini-1.5-pro-002"
+
+# -----------------------------------------------------------------------------
+# GCS Options
+# -----------------------------------------------------------------------------
+[gcs]
+pdf_bucket="csr-demo-viiv"
+tmp_bucket="csr-demo-viiv-tmp"
+
+# -----------------------------------------------------------------------------
+# BQ Options
+# -----------------------------------------------------------------------------
+[BigQuery]
+bq_dataset="sample"
+bq_table="podcast"
+
+
+
+# -----------------------------------------------------------------------------
+# Configurations for page: Home.py
+# -----------------------------------------------------------------------------
+[pages.home]
+
+# Change the following parameters as needed:
+# - page_title: Text that goes in the browser tab.
+# - page_icon: Image that goes in the browser tab.
+# - sidebar_image_path: Image that goes in the left-side menu.
+# - file_name_*: Images for this page.
+page_title = "GSK Podcast Pro"
+page_icon = "images/favicon.png"
+page_title_image = "images/logo.png"
+sidebar_image_path = "images/logo.png"
+architecture_image = "images/PoC_Architecture.png"
+
+file_name_1 = "images/logo.png"
+file_name_2 = "images/logo.png"
+
+[theme]
+primaryColor="#F63366"
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#F0F2F6"
+textColor="#262730"
+
+
+
+# -----------------------------------------------------------------------------
+# Configurations for 1_Text_Generation.py
+# -----------------------------------------------------------------------------
+[pages.1_Podcast_Creation]
+
+# Change the following parameters as needed:
+# - page_title: Text that goes in the browser tab and on the top of this page.
+# - page_icon: Image that goes in the browser tab.
+# - sidebar_image_path: Image that goes in the left-side menu.
+# - page_title_icon: Image that goes on the left side of the main title of this page.
+page_title = "Podcast Creation"
+page_icon = "images/favicon.png"
+page_title_image = "images/audience_icon.png"
+sidebar_image_path = "images/logo.png"
+
+# -----------------------------------------------------------------------------
+# Configurations for 1_Text_Generation.py
+# -----------------------------------------------------------------------------
+[pages.2_Podcast_History]
+
+# Change the following parameters as needed:
+# - page_title: Text that goes in the browser tab and on the top of this page.
+# - page_icon: Image that goes in the browser tab.
+# - sidebar_image_path: Image that goes in the left-side menu.
+# - page_title_icon: Image that goes on the left side of the main title of this page.
+page_title = "Previous Podcast"
+page_icon = "images/favicon.png"
+page_title_image = "images/social_icon.png"
+sidebar_image_path = "images/logo.png"
