@@ -16,11 +16,17 @@
 Utility module to work with app config.
 """
 
-from os.path import isfile
+from os.path import isfile, exists
+import os
 import tomllib
+
 
 PAGES_TOML = "config/pages_config.toml"
 GCP_TOML = "config/gcp_config.toml"
+TEMP_FOLDER = "tmp-audio-files"
+
+if not exists(TEMP_FOLDER):
+    os.makedirs(TEMP_FOLDER)
 
 # Check if the config file exists
 assert isfile(PAGES_TOML), f"Missing Pages Configuration file: {PAGES_TOML} should exist"

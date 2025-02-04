@@ -15,7 +15,7 @@
 import pandas as pd
 import streamlit as st
 import time
-from utils.parse_config import VERTEX_CFG, GCS_CFG, PAGES_CFG, BQ_CFG
+from utils.parse_config import VERTEX_CFG, GCS_CFG, PAGES_CFG, BQ_CFG, TEMP_FOLDER
 from utils import utils_vertex, utils_audio, utils_bigquery, utils_tts, utils_gcs
 
 page_cfg = PAGES_CFG["1_Podcast_Creation"]
@@ -117,7 +117,7 @@ if st.button("Generate Podcast Script", icon=":material/stylus_note:") and uploa
         my_bar.progress(100, text="Podcast Script Created")
         
     # Updating session state
-    st.session_state.original_text = podcast.replace("|", "\n")
+    st.session_state.original_text = podcast.replace("| ", "\n")
     st.session_state.processed_text = st.session_state.original_text
     st.session_state.summary = summary
     st.session_state.script_generated = True
@@ -133,7 +133,7 @@ if st.session_state.script_generated:
 
     final_script = st.text_area("Podcast Script",
                                 value=st.session_state.processed_text,
-                                height=500,
+                                height=450,
                                 label_visibility="collapsed",
                                 key=f"podcast_script_{st.session_state.text_area_key}")
 
@@ -144,29 +144,21 @@ if st.session_state.script_generated:
         if st.button("Save Modifications", icon=":material/save:"):
             st.session_state.processed_text = final_script
             st.session_state.text_area_key += 1  # Increment the key to force recreation
-            st.toast("Modifications saved!")
-            #time.sleep(1)
-            #st.rerun()            
+            st.toast("Modifications saved!")  
     
     with col2:
         if st.button("Reset Script", icon=":material/keyboard_previous_language:"):
             st.session_state.processed_text = st.session_state.original_text
             st.session_state.text_area_key += 1  # Increment the key to force recreation
             st.toast("Script reset to the original text.")
-            #time.sleep(1)
             st.rerun()
 
     with col3:
         # 5. Generate Audio
         if st.button("Generate Podcast", icon=":material/podcasts:"):
-            try:
-                multi_speaker_markup = utils_tts.create_podcast_chapters(final_script.replace("\n", "|"))
-            except:
-                st.error("Invalid podcast script")
-            else:
-                st.session_state.ready_to_generate_audio = True
-                st.session_state.audio_generated = False
-                st.rerun()
+            st.session_state.ready_to_generate_audio = True
+            st.session_state.audio_generated = False
+            st.rerun()
 
     # 6. Download Audio (Only show after generation)
     if st.session_state.ready_to_generate_audio:
@@ -175,9 +167,9 @@ if st.session_state.script_generated:
         bucket_podcast_path = f"{st.session_state.gcs_folder_path}/{st.session_state.podcast_file_name}"
         gcs_podcast_uri = f"gs://{st.session_state.gcs_bucket}/{bucket_podcast_path}"
         if not st.session_state.audio_generated:
-            local_podcast_path = "tmp/output.wav"
+            local_podcast_path = f"{TEMP_FOLDER}/output.wav"
             my_bar = st.progress(0, text="Creating Speaker Flow")
-            multi_speaker_markup = utils_tts.create_podcast_chapters(final_script.replace("\n", "|"))
+            multi_speaker_markup = utils_tts.create_podcast_chapters(final_script.replace("\n", "| "))
             my_bar.progress(25, text="Combining Podcast Files")
             file_paths = utils_audio.get_audio_file_paths()
             utils_audio.concatenate_audio_files(file_paths)

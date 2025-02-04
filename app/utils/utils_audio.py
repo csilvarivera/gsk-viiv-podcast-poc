@@ -12,10 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from utils.parse_config import TEMP_FOLDER
 import os
 import wave
-
-TEMP_FOLDER = "tmp"
 
 def get_audio_file_paths():
     """" Returns a sorted local array with the path of all the created podcast chapters """
@@ -25,7 +24,6 @@ def get_audio_file_paths():
     for file in sorted_files:
         if file.endswith(".wav"):
             file_paths.append(os.path.join(f"{TEMP_FOLDER}/", file))
-            print(os.path.join(f"{TEMP_FOLDER}/", file))
     print(file_paths)
     return file_paths
 

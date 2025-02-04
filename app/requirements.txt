@@ -1,10 +1,8 @@
 toml
 streamlit
-urllib
 google-cloud-aiplatform
 google-cloud-bigquery
 google-cloud-storage
 google-cloud-texttospeech
 pandas
-wave
-os
+db-dtypes

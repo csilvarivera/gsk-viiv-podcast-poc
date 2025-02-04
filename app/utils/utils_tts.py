@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from google.cloud import texttospeech_v1beta1 as texttospeech
+from utils.parse_config import TEMP_FOLDER
 import os
 
 def create_podcast_chapters(podcast_script):
@@ -89,11 +90,11 @@ def synthesize_audio(_multi_speaker_markup, p):
         input=synthesis_input, voice=voice, audio_config=audio_config
     )
     
-    # If the tmp directory does not exist, let's create it
-    os.makedirs("tmp", exist_ok=True)
+    # If the temporary directory does not exist, let's create it
+    os.makedirs(TEMP_FOLDER, exist_ok=True)
 
     # The response's audio_content is binary.
-    with open(f"tmp/{p} - output.wav", "wb") as out:
+    with open(f"{TEMP_FOLDER}/{p} - output.wav", "wb") as out:
         # Write the response to the output file in the local file system
         out.write(response.audio_content)
     
