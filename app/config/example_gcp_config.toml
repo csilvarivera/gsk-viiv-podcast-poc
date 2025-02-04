@@ -1,0 +1,29 @@
+#------------------------------------------------#
+#              Project Configuration              #
+#------------------------------------------------#
+[project]
+project_id = "your-project-id" # required
+location = "my-default-location" # required
+
+#------------------------------------------------#
+#            Vertex AI Configuration             #
+#------------------------------------------------#
+[vertex_ai]
+project_id = "my-vertex-project-id" # optional
+model = "my-gemini-model" # optional
+location = "my-vertex-ai-location" # optional
+
+#------------------------------------------------#
+#               GCS Configuration                #
+#------------------------------------------------#
+[gcs]
+uri = "gs://my-bucket/my-folder" # required
+
+#------------------------------------------------#
+#            BigQuery Configuration              #
+#------------------------------------------------#
+[bigquery]
+project_id = "my-bq-project" # optional
+dataset_id = "my_dataset" # optional
+table_id = "my_table" # optional
+location = "my-bq-location" # optional

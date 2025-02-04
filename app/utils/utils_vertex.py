@@ -1,9 +1,20 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 import vertexai.generative_models as generative_models
-
-
-themes = ""
 
 def get_summary_prompt(is_long_podcast:bool) -> str:
     extra_podcast_direction = ""
@@ -45,10 +56,10 @@ def get_podcast_prompt(summary:str, is_long_podcast:bool) -> str:
     tasks = """
     <tasks>
     Given the PDF summary write a {0} turns podcast between a host and an expert with the following rules:
-    - Have the host welcome the audience in a succinct way to their favourite podcast: "Beyond First-Line Therapies"!! your go-to podcast for the latest insights in Management in HIV of Individuals with limited treatment options!
+    - Have the host welcome the audience in a succinct way to their favorite podcast: "Beyond First-Line Therapies"!! your go-to podcast for the latest insights in Management in HIV of Individuals with limited treatment options!
     - After that, have the host introduce the topic and state the title of the PDF in the introduction statements.
     - Make sure that the entire summary is covered. Don't mention specific slides but rather make the conversation fluid and always make a mention of the numbers presented in chart what it interesting about them. 
-    - Insert a few to moderate amount of disfluencies into the conversational flow for each speaker, in the way that indicates that he host and expert are familar with each other.
+    - Insert a few to moderate amount of disfluencies into the conversational flow for each speaker, in the way that indicates that the host and expert are familiar with each other.
     - Have the host calling back to previous questions to make the audience aware that some of the concepts are connected
     - Have the guest and expert refer how the concepts in the podcast are important for listeners from ViiV when appropriate
     - The last question from the host should be something similar to this "To wrap up can you summarize the key contributions of this paper."
@@ -82,8 +93,7 @@ def get_podcast_prompt(summary:str, is_long_podcast:bool) -> str:
     """.format(turns,summary,extra_podcast_direction)
     return tasks
 
-
-def get_system_instructions_summariser() -> str:
+def get_system_instructions_summarizer() -> str:
     system_instruction=["""
     <persona>   
         You are an expert researcher in medical technology working at ViiV GSK Healthcare capable of understanding and complex terminology in HIV medicine and you are commited to delivering new medicines for the care and treatment of people living with HIV..
@@ -165,18 +175,18 @@ def get_system_instructions_podcast() -> str:
     """]
     return system_instruction
 
-def initialise_vertex(project:str, location:str):
+def initialize_vertex(project:str, location:str):
     vertexai.init(project=project, location=location)
 
 def get_model(model:str, system_instructions:str, temperature:int) -> generative_models.GenerativeModel:
     """
-        Initialise the desired Gemini Model
+        Initialize the desired Gemini Model
 
         Args:
         model : The Gemini model to initiliase 
 
         Returns:
-        generative_models.GenerativeModel: The initialised model
+        generative_models.GenerativeModel: The initialized model
     """
     generation_config = {
         "max_output_tokens": 8192,
@@ -210,18 +220,20 @@ def get_model(model:str, system_instructions:str, temperature:int) -> generative
     )
     return model
 
-def get_token_count(model,prompt:str)->str:
+def get_token_count(_model,prompt:str)->str:
     """
         Returns the number of tokens to send to Gemini
     """
+    model = _model
     tokens = model.count_tokens(prompt)
     total_tokens = f"{'{0:,}'.format(int(tokens.total_tokens))}"
     return total_tokens
 
-def get_gemini_response(model, prompt:str, uri:str=None):
+def get_gemini_response(_model, prompt:str, uri:str=None):
     """
         Calls the Gemini model and returns a summary of the desired PDF
     """
+    model = _model
     gemini_response = ""
     # Validate that we obtained a document uri
     if (uri):

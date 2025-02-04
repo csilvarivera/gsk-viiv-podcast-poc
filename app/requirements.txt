@@ -1,10 +1,10 @@
 toml
 streamlit
-streamlit_extras
+urllib
 google-cloud-aiplatform
 google-cloud-bigquery
 google-cloud-storage
 google-cloud-texttospeech
 pandas
-watchdog
-bigframes
+wave
+os

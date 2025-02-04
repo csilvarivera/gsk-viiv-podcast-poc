@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,37 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-from  parse_config import PAGES_CFG
-import pandas as pd
+from utils.parse_config import PAGES_CFG
 import streamlit as st
-import base64
 
-page_cfg = PAGES_CFG["home"]
-
-# uncomment if developing locally
-#os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'credentials.json'
+page_cfg = PAGES_CFG["Home"]
 
 st.set_page_config(
     page_title=page_cfg["page_title"], 
     page_icon=page_cfg["page_icon"]
 )
 
-
 st.sidebar.success("Select an option.")
-
-file_name_1 = page_cfg["file_name_1"]
-file_name_2 = page_cfg["file_name_2"]
-
-with open(file_name_1, "rb") as fp:
-    contents = fp.read()
-    main_image_1 = base64.b64encode(contents).decode("utf-8")
-    main_image_1 = 'data:image/png;base64,'+main_image_1
-
-with open(file_name_2, "rb") as fp:
-    contents = fp.read()
-    main_image_2 = base64.b64encode(contents).decode("utf-8")
-    main_image_2 = 'data:image/png;base64,'+main_image_2
 
 cols = st.columns([15, 85])
 with cols[0]:
@@ -52,19 +32,20 @@ with cols[1]:
 
 st.write(
     """
-    This application provides a guided way to create Podcast fas part of GSK HCPs Digital Education Programme.
-    """
-)
+    This application is built as a proof-of-concept to demonstrate how to generate a podcast using
+    for ViiV Healthcare using PDF documents as input.
+    This was developed as part of GSK HCPs Digital Education Programme.
 
-st.image (page_cfg["architecture_image"])
+    In the sidebar, you can select two options:
+    * *Podcast Creation*
+    * *Podcast History*
+
+    *Podcast Creation* contains a simple process to generate a podcast from a PDF file.  
+    *Podcast History* displays all previous podcasts that have been generated and saved. 
+    """)
 
 st.divider()
-with st.expander("disclaimer: this is not an official Google product"):
+with st.expander("Disclaimer: this is not an official Google product"):
     st.write("""
-This is not an official Google product. This is a functional demo with a purpose to showcase capabilities of Google products.
+This is a functional demo with the purpose to showcase capabilities of Google products.
 """)
-
-# Example usage:
-# file_path = '/Users/csilvarivera/Documents/gsk-comms/app/sample.json' 
-# df = utils_brandwatch.extract_data_from_json(file_path)
-# print(df.head(5))

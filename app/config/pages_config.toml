@@ -1,0 +1,44 @@
+#------------------------------------------------#
+#         Configuration for page: Home.py        #
+#------------------------------------------------#
+[pages.Home]
+
+# Change the following parameters as needed:
+# - page_title: Text that goes in the browser tab.
+# - page_icon: Image that goes in the browser tab.
+# - page_title_image: Left-side title image.
+
+page_title = "GSK Podcast Pro"
+page_icon = "images/favicon.png"
+page_title_image = "images/consumer_icon.png"
+
+
+#------------------------------------------------#
+#    Configuration for 1_Podcast_Creation.py     #
+#------------------------------------------------#
+[pages.1_Podcast_Creation]
+
+# Change the following parameters as needed:
+# - page_title: Text that goes in the browser tab.
+# - page_title_image: Left-side title image.
+# - page_icon: Image that goes in the browser tab.
+
+
+page_title = "Podcast Creation"
+page_icon = "images/favicon.png"
+page_title_image = "images/activate_icon.png"
+layout="wide"
+
+#------------------------------------------------#
+#    Configuration for 2_Podcast_History.py      #
+#------------------------------------------------#
+[pages.2_Podcast_History]
+
+# Change the following parameters as needed:
+# - page_title: Text that goes in the browser tab.
+# - page_icon: Image that goes in the browser tab.
+
+page_title = "Podcast History"
+page_icon = "images/favicon.png"
+page_title_image = "images/audience_icon.png"
+layout="wide"

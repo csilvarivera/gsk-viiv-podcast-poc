@@ -1,12 +1,24 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from google.cloud import texttospeech_v1beta1 as texttospeech
-from utils import utils_gcs
+import os
 
 def create_podcast_chapters(podcast_script):
     """ parses the podcast script in preparation and creates the multi_speaker markup
         conversation
     """
-    # get a list of the 
-    # print (podcast_script)
     podcast_list = podcast_script.split ("|")
     turns = []
     i = 0
@@ -32,13 +44,13 @@ def create_podcast_chapters(podcast_script):
                 speaker="S",
             )
             turns.append(tts_turn)
-        # due to the 5000 bytes limitation of the Studio Voices, we need to crea a small clip
+        # due to the 5000 bytes limitation of the Studio Voices, we need to create a small clip
         # every 3 sentences. The reason behind this number is anecdotal and based on experience
         # sending requests to the api
         if i > 2:
             multi_speaker_markup = texttospeech.MultiSpeakerMarkup(turns = turns)
             # create small clip with the 4 turns we have 
-            synthesise_audio(multi_speaker_markup,p)
+            synthesize_audio(multi_speaker_markup,p)
             i =0
             p +=1
             turns = []
@@ -47,12 +59,12 @@ def create_podcast_chapters(podcast_script):
     if  len(turns) > 0:
         multi_speaker_markup = texttospeech.MultiSpeakerMarkup(turns = turns)
         # create small clip with the remaining turns
-        synthesise_audio(multi_speaker_markup,p)
+        synthesize_audio(multi_speaker_markup,p)
     return multi_speaker_markup
 
-
-def synthesise_audio(multi_speaker_markup, p):
-    """ Generates the MP3 file by calling AudioLM"""
+def synthesize_audio(_multi_speaker_markup, p):
+    multi_speaker_markup = _multi_speaker_markup
+    """ Generates the WAV file by calling AudioLM"""
     # Instantiates a client
     client = texttospeech.TextToSpeechClient()
 
@@ -76,7 +88,10 @@ def synthesise_audio(multi_speaker_markup, p):
     response = client.synthesize_speech(
         input=synthesis_input, voice=voice, audio_config=audio_config
     )
-   
+    
+    # If the tmp directory does not exist, let's create it
+    os.makedirs("tmp", exist_ok=True)
+
     # The response's audio_content is binary.
     with open(f"tmp/{p} - output.wav", "wb") as out:
         # Write the response to the output file in the local file system

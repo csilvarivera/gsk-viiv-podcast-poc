@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2025 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,14 +16,13 @@ FROM python:3.11
 
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
-WORKDIR /app
 # Install python packages
 
-COPY /app/requirements.txt /tmp/
+COPY requirements.txt /tmp/
 RUN pip install --requirement /tmp/requirements.txt
 
 # Copy local code to the container image.
-COPY ./app ./
+COPY . .
 
 ENV HOST 0.0.0.0
 
