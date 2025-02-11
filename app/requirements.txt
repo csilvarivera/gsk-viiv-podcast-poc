@@ -1,5 +1,4 @@
 toml
-tomllib
 streamlit
 google-cloud-aiplatform
 google-cloud-bigquery
