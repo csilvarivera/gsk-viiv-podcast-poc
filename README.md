@@ -12,7 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# GSK Podcast Generator
+# Podcast Generator
 ## Purpose
 This application enables a user to generate podcasts using PDF files as input.
 It leverages several Google Cloud services, allowing for a streamlined and scalable podcast creation process.
