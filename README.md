@@ -1,8 +1,8 @@
-# gsk-viiv-podcast
+# Podcast Generator
 
 ## Purpose
 
-This project allows ViiV to create a podcast from a single PDF file
+This project allows to create a podcast from a single PDF file
 
 ## Getting started
 
